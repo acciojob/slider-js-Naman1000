@@ -1,44 +1,50 @@
- const slides = [
-      {
-        id: 'slide-1',
-        image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80'
-      },
-      {
-        id: 'slide-2',
-        image: 'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=800&q=80'
-      },
-      {
-        id: 'slide-3',
-        image: 'https://images.unsplash.com/photo-1508923567004-3a6b8004f3d5?auto=format&fit=crop&w=800&q=80'
-      },
-      {
-        id: 'slide-4',
-        image: 'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=800&q=80'
-      }
-    ];
+  const themes = [
+    {
+      id: 'slide-1',
+      h1: 'Nature flower',
+      p: 'all in pink',
+      img: 'https://via.placeholder.com/800x600?text=Nature+flower'
+    },
+    {
+      id: 'slide-2',
+      h1: 'Bluuue Sky',
+      p: "with it's mountains",
+      img: 'https://via.placeholder.com/800x600?text=Bluuue+Sky'
+    },
+    {
+      id: 'slide-3',
+      h1: 'Lonely castle',
+      p: 'in the wilderness',
+      img: 'https://via.placeholder.com/800x600?text=Lonely+castle'
+    },
+    {
+      id: 'slide-4',
+      h1: 'Flying eagle',
+      p: 'in the sunset',
+      img: 'https://via.placeholder.com/800x600?text=Flying+eagle'
+    }
+  ];
 
-    let currentSlide = 0;
+  const leftSlide = document.getElementById('left-slide');
+  const rightSlideImg = document.getElementById('slide-img');
+  const upBtn = document.querySelector('.up-button');
+  const downBtn = document.querySelector('.down-button');
 
-    const leftSlide = document.querySelector('.left-slide');
-    const slideElements = leftSlide.querySelectorAll('div');
-    const imageSlide = document.getElementById('image-slide');
+  let currentIndex = 0;
 
-    const showSlide = (index) => {
-      slideElements.forEach((el, i) => {
-        el.classList.toggle('active', i === index);
-      });
-      imageSlide.style.backgroundImage = `url(${slides[index].image})`;
-    };
+  function updateSlide(index) {
+    const theme = themes[index];
+    leftSlide.innerHTML = `<h1>${theme.h1}</h1><p>${theme.p}</p>`;
+    rightSlideImg.src = theme.img;
+    rightSlideImg.alt = theme.h1;
+  }
 
-    document.querySelector('.up-button').addEventListener('click', () => {
-      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-      showSlide(currentSlide);
-    });
+  upBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + themes.length) % themes.length;
+    updateSlide(currentIndex);
+  });
 
-    document.querySelector('.down-button').addEventListener('click', () => {
-      currentSlide = (currentSlide + 1) % slides.length;
-      showSlide(currentSlide);
-    });
-
-    // Initial load
-    showSlide(currentSlide);
+  downBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % themes.length;
+    updateSlide(currentIndex);
+  });
